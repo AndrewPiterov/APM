@@ -12,6 +12,7 @@ var app;
             DataAccessService.$inject = ["$resource"];
             return DataAccessService;
         })();
+        common.DataAccessService = DataAccessService;
         angular.module("common.services")
             .service("dataAccessService", DataAccessService);
     })(common = app.common || (app.common = {}));

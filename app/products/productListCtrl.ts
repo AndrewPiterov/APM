@@ -15,19 +15,16 @@ module app.productList {
 		/**
 		 * Constructor of ProductListCtrl
 		 */
-		constructor() {
+		static $inject = ["dataAccessService"];
+		constructor(private dataAccessService: app.common.DataAccessService) {
 			this.title = "Product List";
 			this.showImage = false;
 			this.products = [];
 
-			var newProduct = new app.domain.Product(5,
-				"Hammer",
-				"TBX-0048",
-				new Date(2013, 4, 21), 8.99,
-				"Curved claw steel hammer",
-				"http://openclipart.org/image/300px/svg_to_png/73/rejon_Hammer.png");
-
-			this.products.push(newProduct);
+			var productResource = dataAccessService.getProductResource();
+			productResource.query((data: app.domain.IProduct[]) => {
+				this.products = data;
+			})
 
 		}
 
